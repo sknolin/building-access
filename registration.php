@@ -1,6 +1,6 @@
 <?php
 
-addUserMenuEntry( new MenuEntry('','Registration Form','') );
+addUserMenuEntry( new MenuEntry('','Access Log','') );
 addPageHandler( new PageHandler('','showRequestForm','container') );
 addSubmitHandler( new SubmitHandler('request','saveRequest') );
 addSubmitHandler( new SubmitHandler('request_approval','requestApproval') );
@@ -173,7 +173,9 @@ function showRequestForm() {
   if( array_key_exists('repeat',$_REQUEST) ) {
     $checked = $_REQUEST['repeat'] ? 'checked' : '';
   }
+/* hide repeat button
   echo "<label><input type='checkbox' name='repeat' value='1' autocomplete='off' onchange='repeatChanged()' $checked/> repeat ...</label>\n";
+*/
   echo "</div>\n";
 
   echo "<div class='repeat-options' style='display: none'>\n";
@@ -314,9 +316,13 @@ function showRequestForm() {
   echo "</p>\n";
   echo "</form>\n";
 
+/* for signin/out log, text is incorrect below
   echo "<p>A list of registrants appears below.  Choose a time to minimize contact with others.</p>\n";
+*/
 
+/* signin/out log, no filter
   echo "<div id='filter_control' class='disabled'><label><input type='checkbox' name='do_filter' id='do_filter' value='1' checked disabled onchange='updateSlotInfo()'/> filter times and rooms shown below using the data entered above</label></div>\n";
+*/
 
   showOccupancyList();
 
@@ -904,12 +910,12 @@ function saveRequest($show) {
   else {
     $approved = doAutoApprovalWithRepeats($why_not_approved,$warnings,$id,$children_not_approved,$child_warnings);
     if( $approved && count($children_not_approved)==0 ) {
-      echo "<div class='alert alert-success'>Saved and automatically approved. " . SUCCESS_REGISTRATION_MSG . " ",htmlescape($repeat_status),"</div>\n";
+      echo "<div class='alert alert-success'>Saved " . SUCCESS_REGISTRATION_MSG . " ",htmlescape($repeat_status),"</div>\n";
     } else {
       $continue_editing_this_request = true;
 
       if( $approved ) {
-        echo "<div class='alert alert-success'>Saved and automatically approved. " . SUCCESS_REGISTRATION_MSG . " ",htmlescape($repeat_status),"</div>\n";
+        echo "<div class='alert alert-success'>Saved " . SUCCESS_REGISTRATION_MSG . " ",htmlescape($repeat_status),"</div>\n";
       } else {
         echo "<div class='alert alert-warning'>Saved but <i>not</i> automatically approved.\n";
         foreach( $why_not_approved as $why_not ) {

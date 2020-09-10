@@ -392,8 +392,8 @@ function getRoomCaps($building) {
 function getRoomCap($room,$building) {
   $roomcaps = getRoomCaps($building);
 
-  $normcap = 1;
-  $maxcap = 1;
+  $normcap = 100;
+  $maxcap = 100;
   $description = "";
 
   if( $roomcaps && array_key_exists($room,$roomcaps) ) {
@@ -581,7 +581,6 @@ function listFullWeekdayNames($day_chars) {
 
 function getEndOfMonth($date_str,$month_offset) {
   $dt = new DateTime($date_str);
-  $dt = new DateTime($dt->format('Y-m-01'));
   $dt->add(new DateInterval('P' . ($month_offset+1) . 'M'));
   $dt = new DateTime($dt->format('Y-m-01'));
   $dt->sub(new DateInterval('P1D'));
